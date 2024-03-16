@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1">
+        <item
+            android:id="@+id/navMenu"
+            android:icon="@drawable/baseline_menu_24"
+            android:title="Menu" />
+        <item
+            android:id="@+id/navCart"
+            android:icon="@drawable/baseline_cart_24"
+            android:title="Cart" />
+        <item
+            android:id="@+id/navFavourite"
+            android:icon="@drawable/baseline_favourite_24"
+            android:title="Favourite" />
+    </group>
+
+    <group android:id="@+id/group2">
+        <item
+            android:id="@+id/navOrders"
+            android:icon="@drawable/baseline_orders_24"
+            android:title="Ongoing Orders" />
+        <item
+            android:id="@+id/navHistory"
+            android:icon="@drawable/baseline_history_24"
+            android:title="History" />
+        <item
+            android:id="@+id/navFeedback"
+            android:icon="@drawable/baseline_feedback_24"
+            android:title="Feedback" />
+    </group>
+
+    <group android:id="@+id/group3">
+        <item
+            android:id="@+id/navTerms"
+            android:icon="@drawable/baseline_terms_24"
+            android:title="Terms and Conditions" />
+        <item
+            android:id="@+id/navContact"
+            android:icon="@drawable/baseline_contact_us_24"
+            android:title="Contact us" />
+    </group>
+
+    <group android:id="@+id/group4">
+        <item
+            android:id="@+id/navShare"
+            android:icon="@drawable/baseline_share_24"
+            android:title="Share" />
+    </group>
+</menu>

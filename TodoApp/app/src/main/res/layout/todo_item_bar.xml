@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@color/orange"
+    android:layout_marginTop="10dp"
+    android:id="@+id/accordianTitle">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/todoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="todo title here"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="25dp"/>
+
+        <ImageView
+            android:id="@+id/slideDownBtn"
+            android:src="@drawable/ic_baseline_arrow_downward"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/todoBody"
+        android:background="@color/secondary_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="5dp">
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:src="@drawable/ic_baseline_delete_forever"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:id="@+id/btnEdit"
+                    android:src="@drawable/bxs_edit"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btnDelete"
+                    android:layout_marginRight="10dp"
+                    />
+                <ImageView
+                    android:id="@+id/btnDone"
+                    android:src="@drawable/material_symbols_done"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btnEdit"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/todoDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="todo title here"
+                android:textColor="@color/white"
+                android:singleLine="false"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="22dp"
+                android:padding="5dp"/>
+
+            <EditText
+                android:id="@+id/todoDescEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:ems="10"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:text="Name" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
