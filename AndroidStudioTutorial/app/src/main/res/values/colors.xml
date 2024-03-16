@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="grey">#9f9a9a</color>
+    <color name="orange">#ff7427</color>
+    <color name="yellow">#ffc107</color>
+    <color name="mainColor">#1f1d28</color>
+    <color name="darkBlue">#252836</color>
+
+    <color name="primary">#FF9800</color>
+    <color name="primary_dark">#130041</color>
+    <color name="primary_light">#FFE0B2</color>
+    <color name="accent">#FF5722</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
+    <!-- 状态栏颜色 -->
+    <color name="design_default_color_primary_dark">#ff7427</color>
+</resources>

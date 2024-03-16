@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/miHome"
+            android:icon="@drawable/baseline_home_24"
+            android:title="Home"
+            android:checkable="true"/>
+        <item
+            android:id="@+id/miAbount"
+            android:icon="@drawable/baseline_bus_24"
+            android:title="Bus"
+            android:checkable="true"/>
+        <item
+            android:id="@+id/miRating"
+            android:icon="@drawable/baseline_rating_24"
+            android:title="Rating"
+            android:checkable="true" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="Profile">
+            <menu>
+                <item
+                    android:id="@+id/miLogin"
+                    android:icon="@drawable/baseline_login_24"
+                    android:title="Login" />
+                <item
+                    android:id="@+id/miLogout"
+                    android:icon="@drawable/baseline_login_24"
+                    android:title="Logout" />
+            </menu>
+        </item>
+    </group>
+</menu>
