@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/buttonExpandBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Expand"/>
+
+        <Button
+            android:id="@+id/buttonCollapseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collapse"/>
+
+        <TextView
+            android:id="@+id/textViewStaus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginTop="16dp"
+            android:text="State"/>
+    </LinearLayout>
+    
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottomSheetView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkBlue"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="55dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="This is a Bottom Sheet\n\n
+多年来我用多种编程语言开发了各种 web 应用程序。最近我在学习 Rust，一个入门难度相对比较大但高性能的编程语言。
+
+Rust 的编程模型令我着迷，我在学习过程中会记录下点点滴滴。
+
+这个程序将开发中可能会用到的各种框架集成到一起，以便于将来用到的时候可以快速查找。
+
+目前为止我还没有发现 Rust 做不到的事情。
+
+Happy Coding ...."/>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

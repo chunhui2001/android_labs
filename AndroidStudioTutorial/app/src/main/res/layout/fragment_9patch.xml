@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bubble"
+        android:layout_margin="10dp"
+        android:text="
+Rust 的编程模型令我着迷，我在学习过程中会记录下点点滴滴。
+
+这个程序将开发中可能会用到的各种框架集成到一起，以便于将来用到的时候可以快速查找。
+
+目前为止我还没有发现 Rust 做不到的事情。
+"/>
+</LinearLayout>

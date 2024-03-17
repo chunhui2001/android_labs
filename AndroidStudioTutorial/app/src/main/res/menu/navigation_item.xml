@@ -13,9 +13,72 @@
             android:title="Bus"
             android:checkable="true"/>
         <item
-            android:id="@+id/miRating"
-            android:icon="@drawable/baseline_rating_24"
-            android:title="Rating"
+            android:id="@+id/miCollapsingToolBar"
+            android:title="CollapsingToolBar"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miTabLayout"
+            android:title="TabLayout"
+            android:checkable="true" />
+        <item
+            android:id="@+id/mi9Patch"
+            android:title="9Patch"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miSearchViewToolbar"
+            android:title="SearchViewToolbar"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miImageSlider"
+            android:title="Picasso Image Slider"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miKenBurnsView"
+            android:title="Ken Burns View"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miPersistentBottomSheet"
+            android:title="Persistent Bottom Sheet"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miLayouts"
+            android:title="Layouts"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miFab"
+            android:title="ExpandableFloatingAction"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miVisualizerAudio"
+            android:title="Visualizer for Audio Music"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miSystemBarColors"
+            android:title="Change System Bar Colors"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miUIController"
+            android:title="System UI Controller for Jetpack Compose"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miCountDownTimer"
+            android:title="CountDown Timer"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miRepeatableWork"
+            android:title="Run a Repeatable Work"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miBuildGpsApp"
+            android:title="Build a GPS App"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miImportantWork"
+            android:title="Execute an important work using WorkManager"
+            android:checkable="true" />
+        <item
+            android:id="@+id/miWebsocket"
+            android:title="Websocket"
             android:checkable="true" />
     </group>
 
@@ -33,4 +96,5 @@
             </menu>
         </item>
     </group>
+
 </menu>

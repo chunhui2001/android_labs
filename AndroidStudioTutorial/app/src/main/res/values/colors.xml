@@ -19,5 +19,5 @@
     <color name="divider">#BDBDBD</color>
 
     <!-- 状态栏颜色 -->
-    <color name="design_default_color_primary_dark">#ff7427</color>
+<!--    <color name="design_default_color_primary_dark">#ff7427</color>-->
 </resources>

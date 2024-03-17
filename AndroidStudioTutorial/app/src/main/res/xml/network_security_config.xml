@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true" usesCleartextTraffic="true">
+        <domain includeSubdomains="true">92c8-13-230-16-197.ngrok-free.app</domain>
+        <domain includeSubdomains="true">echo.websocket.org</domain>
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">192.168.1.5</domain>
+    </domain-config>
+</network-security-config>

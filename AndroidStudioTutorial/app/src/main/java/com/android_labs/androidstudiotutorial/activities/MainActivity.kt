@@ -1,9 +1,9 @@
 package com.android_labs.androidstudiotutorial.activities
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +12,20 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.android_labs.androidstudiotutorial.R
 import com.android_labs.androidstudiotutorial.fragments.AboutFragment
+import com.android_labs.androidstudiotutorial.fragments.BuildGpsAppFragment
+import com.android_labs.androidstudiotutorial.fragments.CountDownTimerFragment
+import com.android_labs.androidstudiotutorial.fragments.ExpandableFloatingActionButtonFragment
 import com.android_labs.androidstudiotutorial.fragments.HomeFragment
+import com.android_labs.androidstudiotutorial.fragments.ImportantWorkFragment
+import com.android_labs.androidstudiotutorial.fragments.KenBurnsViewFragment
+import com.android_labs.androidstudiotutorial.fragments.LayoutsFragment
+import com.android_labs.androidstudiotutorial.fragments.PersistentBottomSheetFragment
+import com.android_labs.androidstudiotutorial.fragments.PicassoImageSliderFragment
+import com.android_labs.androidstudiotutorial.fragments.RepeatableWorkFragment
+import com.android_labs.androidstudiotutorial.fragments.Resizable9PatchFragment
+import com.android_labs.androidstudiotutorial.fragments.TabLayoutFragment
+import com.android_labs.androidstudiotutorial.fragments.VisualizerAudioMusicFragment
+import com.android_labs.androidstudiotutorial.fragments.WebsocketFragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 
@@ -53,42 +66,68 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity, drawerLayout, materialToolBar, R.string.close, R.string.open
         ))
 
-        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                // 滑动时
-                setStatusBarTransparent()
-
-                // 根据 slideOffset 来调整主内容视图的位置
-                val contentView = findViewById<View>(R.id.contentLayout) // 替换为你的主内容视图的ID
-                contentView.translationX = drawerView.width * slideOffset
-            }
-
-            override fun onDrawerOpened(drawerView: View) {
-                // 打开时设置状态栏透明
-                setStatusBarTransparent()
-
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                // 关闭时恢复状态栏颜色
-                setStatusBarColor(getResources().getColor(R.color.orange))
-            }
-
-            override fun onDrawerStateChanged(newState: Int) {
-                // 状态变化时
-                // setStatusBarTransparent()
-            }
-        })
 
         navigationView.setNavigationItemSelectedListener {
+            this.materialToolBar.title = ""
 
             if (it.itemId == R.id.miHome) {
                 loadFragment(HomeFragment())
                 drawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            if (it.itemId == R.id.miAbount) {
+            } else if (it.itemId == R.id.miAbount) {
                 loadFragment(AboutFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miCollapsingToolBar) {
+                startActivity(Intent(this@MainActivity, CollapsingToolBarActivity::class.java))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miTabLayout) {
+                loadFragment(TabLayoutFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.mi9Patch) {
+                loadFragment(Resizable9PatchFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miSearchViewToolbar) {
+                startActivity(Intent(this@MainActivity, SearchViewToolbarActivity::class.java))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miImageSlider) {
+                loadFragment(PicassoImageSliderFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miKenBurnsView) {
+                loadFragment(KenBurnsViewFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miPersistentBottomSheet) {
+                loadFragment(PersistentBottomSheetFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miLayouts) {
+                loadFragment(LayoutsFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miFab) {
+                loadFragment(ExpandableFloatingActionButtonFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miVisualizerAudio) {
+                loadFragment(VisualizerAudioMusicFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miSystemBarColors) {
+                startActivity(Intent(this@MainActivity, SystemBarActivity::class.java))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miUIController) {
+                startActivity(Intent(this@MainActivity, UIControllerActivity::class.java))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miCountDownTimer) {
+                loadFragment(CountDownTimerFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miRepeatableWork) {
+                loadFragment(RepeatableWorkFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miBuildGpsApp) {
+                loadFragment(BuildGpsAppFragment())
+                this.materialToolBar.title = "Gps"
+                this.materialToolBar.setTitleTextColor(getResources().getColor(R.color.white))
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miImportantWork) {
+                loadFragment(ImportantWorkFragment())
+                drawerLayout.closeDrawer(GravityCompat.START)
+            } else if (it.itemId == R.id.miWebsocket) {
+                loadFragment(WebsocketFragment())
                 drawerLayout.closeDrawer(GravityCompat.START)
             }
 

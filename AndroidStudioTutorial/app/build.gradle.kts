@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.android_labs.androidstudiotutorial"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -59,6 +59,24 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.0.0")
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.flaviofaria:kenburnsview:1.0.7")
+
+    implementation("com.gauravk.audiovisualizer:audiovisualizer:0.9.2")
+
+    // Jetpack Compose
+    implementation("androidx.compose.ui:ui:1.6.4")
+//    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material:material:1.6.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.4")
+    implementation("androidx.activity:activity-compose:1.8.2")
+
+    // System UI Controller - Accompanist
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+    implementation(libs.androidx.work.runtime.ktx)
+
+    implementation("com.google.android.gms:play-services-location:21.2.0")
 
     kapt("androidx.room:room-compiler:2.6.1")
 }

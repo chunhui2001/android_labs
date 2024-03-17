@@ -6,14 +6,14 @@
         android:id="@+id/biHome"
         android:title="Home"
         android:icon="@drawable/baseline_home_24"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|collapseActionView"
         app:iconTint="@color/white"/>
 
     <item
         android:id="@+id/biAbout"
         android:title="Notification"
         android:icon="@drawable/baseline_notification_24"
-        app:showAsAction="ifRoom"
+        app:showAsAction="ifRoom|collapseActionView"
         app:iconTint="@color/white"
         />
 </menu>

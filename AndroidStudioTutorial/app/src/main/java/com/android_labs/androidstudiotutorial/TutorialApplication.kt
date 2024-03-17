@@ -6,5 +6,7 @@ class TutorialApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        HttpsTrustManager.allowAllSSL()
     }
 }
