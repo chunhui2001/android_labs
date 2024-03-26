@@ -23,12 +23,18 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import okio.ByteString
+import org.json.JSONObject
+import java.lang.Exception
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 const val INTERNET_PERMISSION_CODE = 1001
 const val TAG = "WebsocketFragment"
+const val WS_SERVER = "ws://192.168.1.5:9010/devstream/ws"
 
 class WebsocketFragment: Fragment() {
 
+    private lateinit var serverTime: TextView
     private lateinit var startBtn: Button
     private lateinit var outputTxt: TextView
 
@@ -40,7 +46,7 @@ class WebsocketFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_websocket, container, false)
 
-
+        this.serverTime = view.findViewById(R.id.serverTime)
         this.startBtn = view.findViewById(R.id.startBtn)
         this.outputTxt = view.findViewById(R.id.outputTxt)
 
@@ -61,8 +67,7 @@ class WebsocketFragment: Fragment() {
     }
 
     private fun startWebSocket() {
-        val url = "ws://echo.websocket.org"
-        val request = Request.Builder().url(url).build()
+        val request = Request.Builder().url(WS_SERVER).build()
 
         this.okhttp.newWebSocket(request, EchoWebSocketListener())
         this.okhttp.dispatcher().executorService().shutdown()
@@ -78,10 +83,9 @@ class WebsocketFragment: Fragment() {
         }
 
         override fun onOpen(webSocket: WebSocket, response: Response) {
-            webSocket.send("Hello, it's Laurel!")
-            webSocket.send("What's up?")
-            // webSocket.send(ByteString.decodeHex("Try it!"))
-            webSocket.close(NORMAL_CLOSURE_STATUS, "Good bye!")
+            webSocket.send("""
+                {"ty":"Subscribe","data":{"channel":"ServerTime"}}
+            """)
         }
 
         override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -89,7 +93,19 @@ class WebsocketFragment: Fragment() {
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
-            output("Receiving Text: $text")
+            try {
+                if (JSONObject(text).getString("ty") == "ServerTime") {
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+                    val dateTime = LocalDateTime.parse(JSONObject(text).getString("msg"), formatter)
+                    serverTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss.S"))
+//                    serverTime.text = dateTime.toString()
+                } else {
+//                    output("Receiving Text: $text")
+                }
+            } catch (e: Exception) {
+
+                output("Receiving Text: $text")
+            }
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -104,6 +120,7 @@ class WebsocketFragment: Fragment() {
 
         private fun output(s: String) {
             requireActivity().runOnUiThread {
+
                 val color = ContextCompat.getColor(requireContext(), R.color.primary)
                 val hexColor: String = String.format("#%06X", color)
                 val text = SpannableString(outputTxt.text.toString() + "\r\n" + s ?: "")
