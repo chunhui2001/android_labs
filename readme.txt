@@ -27,3 +27,6 @@ https://21zerixpm.medium.com/running-android-emulator-without-android-studio-on-
 
 ### anddroid location service gradle
 https://developers.google.com/android/guides/setup
+
+### 应用图标在线生成
+https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html
