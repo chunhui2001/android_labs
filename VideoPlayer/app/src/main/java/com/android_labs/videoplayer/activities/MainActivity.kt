@@ -3,6 +3,8 @@ package com.android_labs.videoplayer.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.SystemClock
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
@@ -27,19 +29,19 @@ class MainActivity : AppCompatActivity() {
 
         this.folderListView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        var adapter = VideoFolderAdapter(this.readVidoeList())
+        var adapter = VideoFolderAdapter(this, this.readVideoList())
 
         this.folderListView.adapter = adapter
 
         this.swipeRereshLayout.setOnRefreshListener {
-            this.readVidoeList()
+            this.readVideoList()
             adapter.notifyDataSetChanged()
 
             this.swipeRereshLayout.isRefreshing = false
         }
     }
 
-    private fun readVidoeList(): List<String> {
+    private fun readVideoList(): List<String> {
 
         var folderList: MutableList<String> = mutableListOf()
 
@@ -77,8 +79,14 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.miRefresh -> {
-                finish()
-                startActivity(intent)
+                this.swipeRereshLayout.isRefreshing = true
+                this.readVideoList()
+                this.folderListView.adapter?.notifyDataSetChanged()
+
+                Handler().postDelayed( {
+                    this.swipeRereshLayout.isRefreshing = false
+                }, 1000)
+
                 return true
             }
             R.id.miShare -> {

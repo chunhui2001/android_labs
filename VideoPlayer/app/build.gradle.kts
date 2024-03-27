@@ -48,7 +48,10 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
+
     implementation("com.github.bumptech.glide:glide:4.16.0")
+//    implementation("com.github.bumptech.glide:compiler:4.16.0")
+
     implementation("com.google.code.gson:gson:2.8.7")
     implementation("com.squareup.picasso:picasso:2.5.2")
 
@@ -64,6 +67,7 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("com.google.android.exoplayer:exoplayer:2.14.1")
 
     kapt("androidx.room:room-compiler:2.6.1")
 }

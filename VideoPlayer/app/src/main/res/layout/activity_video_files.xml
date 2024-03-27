@@ -7,8 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.VideoFilesActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/videoListView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/reloadVideoList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/videoListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

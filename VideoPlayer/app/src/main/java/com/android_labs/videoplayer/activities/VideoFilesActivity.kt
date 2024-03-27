@@ -5,25 +5,37 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android_labs.videoplayer.MediaFiles
 import com.android_labs.videoplayer.R
 import com.android_labs.videoplayer.VideoFilesAdapter
+import java.io.File
 
 class VideoFilesActivity : AppCompatActivity() {
 
     private lateinit var videoListView: RecyclerView
+
+    private lateinit var reloadVideoList: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_video_files)
 
+        this.reloadVideoList = findViewById(R.id.reloadVideoList)
         this.videoListView = findViewById(R.id.videoListView)
         this.videoListView.layoutManager = LinearLayoutManager(this)
 
         val folderName = intent.getStringExtra("folderName")!!
 
-        this.videoListView.adapter = VideoFilesAdapter(listVideos(folderName))
+        supportActionBar?.title = File(folderName).name
+
+        this.videoListView.adapter = VideoFilesAdapter(this@VideoFilesActivity, listVideos(folderName).toMutableList())
+
+        this.reloadVideoList.setOnRefreshListener {
+            this.videoListView.adapter = VideoFilesAdapter(this@VideoFilesActivity, listVideos(folderName).toMutableList())
+            this.reloadVideoList.isRefreshing = false
+        }
     }
 
     private fun listVideos(folderName: String): List<MediaFiles> {
@@ -58,4 +70,5 @@ class VideoFilesActivity : AppCompatActivity() {
 
         return listVideos
     }
+
 }

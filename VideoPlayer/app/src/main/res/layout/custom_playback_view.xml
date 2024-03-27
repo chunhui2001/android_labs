@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="visible"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:id="@+id/videoBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_arrow_back24"/>
+
+            <TextView
+                android:id="@+id/videoTitleTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="This is view title"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+            <ImageView
+                android:id="@+id/videoList"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_playlist24"/>
+
+            <ImageView
+                android:id="@+id/videoMore"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:padding="2dp"
+                android:layout_marginRight="10dp"
+                app:tint="@color/white"
+                android:src="@drawable/ic_more24_weight"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/videoProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_above="@id/bottomIcons">
+            <TextView
+                android:id="@+id/exoPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:text="44"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/exoDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="55"
+                android:textColor="@color/white"/>
+
+            <com.google.android.exoplayer2.ui.DefaultTimeBar
+                android:id="@+id/exoProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@id/exoDuration"
+                android:layout_toEndOf="@id/exoPosition"
+                android:layout_toLeftOf="@id/exoDuration"
+                android:layout_toRightOf="@id/exoPosition"
+                app:played_color="@color/purple_200"
+                app:scrubber_drawable="@drawable/scrubber"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomIcons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_vertical"
+            android:weightSum="8">
+
+            <ImageView
+                android:id="@+id/videoUnLock"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_lock_open24"/>
+
+            <ImageView
+                android:id="@+id/exoRewind"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_replay_10"/>
+
+            <ImageView
+                android:id="@+id/exoPrev"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_prev24"/>
+
+            <ImageView
+                android:id="@+id/exoPlay"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_play24"/>
+
+            <ImageView
+                android:id="@+id/exoPause"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pause24"/>
+
+            <ImageView
+                android:id="@+id/exoNext"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_next_fill24"/>
+
+            <ImageView
+                android:id="@+id/exoFastword"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_forward_24"/>
+
+            <ImageView
+                android:id="@+id/scaling"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_scaling24"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
