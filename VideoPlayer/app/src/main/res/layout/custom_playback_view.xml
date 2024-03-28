@@ -100,7 +100,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:gravity="center_vertical"
-            android:weightSum="8">
+            android:weightSum="7">
 
             <ImageView
                 android:id="@+id/videoUnLock"
@@ -159,4 +159,17 @@
                 android:src="@drawable/ic_scaling24"/>
         </LinearLayout>
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/videoLock"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:scaleType="centerInside"
+        android:background="@drawable/ripple_circle"
+        android:visibility="invisible"
+        android:src="@drawable/ic_lock24"
+        app:tint="@color/white" />
 </RelativeLayout>

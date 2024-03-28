@@ -6,6 +6,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
@@ -35,6 +37,14 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var videoTitle: String
     private lateinit var videoPlayerList: java.util.ArrayList<MediaFiles>
 
+    private lateinit var rootLayout: RelativeLayout
+    private lateinit var videoBack: ImageView
+    private lateinit var videoUnLock: ImageView
+    private lateinit var videoLock: ImageView
+    private lateinit var scaling: ImageView
+
+    private var screenMode = 1  // 1(default) 2(full) 3(zoom)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()
@@ -46,6 +56,12 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 
         this.nextVideoBtn = playerView.findViewById(R.id.exoNext)
         this.prevVideoBtn = playerView.findViewById(R.id.exoPrev)
+
+        this.rootLayout = playerView.findViewById(R.id.root_layout)
+        this.videoBack = playerView.findViewById(R.id.videoBack)
+        this.videoUnLock = playerView.findViewById(R.id.videoUnLock)
+        this.videoLock = playerView.findViewById(R.id.videoLock)
+        this.scaling = playerView.findViewById(R.id.scaling)
 
         supportActionBar?.hide()
 
@@ -62,6 +78,49 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 
         this.nextVideoBtn.setOnClickListener(this)
         this.prevVideoBtn.setOnClickListener(this)
+
+        this.videoBack.setOnClickListener {
+            if (this.simpleExoVideoPlayer != null) {
+                this.simpleExoVideoPlayer.release()
+            }
+
+            finish()
+        }
+
+        this.videoLock.setOnClickListener{
+            this.rootLayout.visibility = View.VISIBLE
+            this.videoLock.visibility = View.INVISIBLE
+        }
+
+        this.videoUnLock.setOnClickListener {
+            this.rootLayout.visibility = View.INVISIBLE
+            this.videoLock.visibility = View.VISIBLE
+        }
+
+        this.scaling.setOnClickListener{
+            if (screenMode == 1) {
+                // to full screen
+                this.playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+                this.simpleExoVideoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_DEFAULT
+                this.scaling.setImageResource(R.drawable.ic_full)
+
+                screenMode = 2
+            } else if (screenMode == 2) {
+                // to zoom screen
+                this.playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+                this.simpleExoVideoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_DEFAULT
+                this.scaling.setImageResource(R.drawable.ic_zoom_out)
+
+                screenMode = 3
+            } else if (screenMode == 3) {
+                // to default screen
+                this.playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+                this.simpleExoVideoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_DEFAULT
+                this.scaling.setImageResource(R.drawable.ic_scaling24)
+
+                screenMode = 1
+            }
+        }
 
         playVideo()
     }
