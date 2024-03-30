@@ -22,4 +22,11 @@
         app:use_controller="true"
         app:controller_layout_id="@layout/custom_playback_view" />
 
+    <View
+        android:id="@+id/night_mode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#74000000"
+        android:visibility="invisible"/>
+
 </RelativeLayout>
