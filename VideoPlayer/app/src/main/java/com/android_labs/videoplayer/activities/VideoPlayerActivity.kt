@@ -161,6 +161,7 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener {
 
         this.simpleExoVideoPlayer.playWhenReady = true
         this.simpleExoVideoPlayer.playbackState
+
     }
 
     override fun onRestart() {
