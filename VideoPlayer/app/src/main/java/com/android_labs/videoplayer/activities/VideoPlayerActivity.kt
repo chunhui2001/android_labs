@@ -1,6 +1,5 @@
 package com.android_labs.videoplayer.activities
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -25,17 +24,26 @@ import com.android_labs.videoplayer.MediaFiles
 import com.android_labs.videoplayer.PlayIconAdapter
 import com.android_labs.videoplayer.R
 import com.android_labs.videoplayer.VolumeDialog
+import com.developer.filepicker.controller.DialogSelectionListener
+import com.developer.filepicker.model.DialogConfigs
+import com.developer.filepicker.model.DialogProperties
+import com.developer.filepicker.view.FilePickerDialog
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlaybackException
+import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
+import com.google.android.exoplayer2.source.MergingMediaSource
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.source.SingleSampleMediaSource
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.MimeTypes
 import com.google.android.exoplayer2.util.Util
+import java.io.File
 
 class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconAdapter.Callback {
 
@@ -66,6 +74,10 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
 
     private var playbackParameters: PlaybackParameters = PlaybackParameters(1f)
     private var speed = 1
+
+    private lateinit var dialogProperties: com.developer.filepicker.model.DialogProperties
+    private lateinit var filePickerDialog: FilePickerDialog
+    private lateinit var uriSubtitle: Uri
 
     private var iconList: MutableList<IconModel> = mutableListOf(
         IconModel(R.drawable.ic_arrow_right_24, "", 0),
@@ -99,6 +111,13 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
         this.videoUnLock = playerView.findViewById(R.id.videoUnLock)
         this.videoLock = playerView.findViewById(R.id.videoLock)
         this.scaling = playerView.findViewById(R.id.scaling)
+
+        this.dialogProperties = DialogProperties()
+        this.filePickerDialog = FilePickerDialog(this@VideoPlayerActivity)
+
+        this.filePickerDialog.setTitle("Select a Subtitle File")
+        this.filePickerDialog.setPositiveBtnName("Ok")
+        this.filePickerDialog.setNegativeBtnName("Cancel")
 
         this.recycleIconView = playerView.findViewById(R.id.recycleIconView)
 
@@ -236,6 +255,49 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
         this.simpleExoVideoPlayer.playbackParameters = playbackParameters
         this.simpleExoVideoPlayer.prepare(concatenatingMediaSource)
         this.simpleExoVideoPlayer.seekTo(this.videoPosition, C.TIME_UNSET)
+
+        var uri = Uri.parse(this.videoPlayerList[this.videoPosition].path)
+        var retriever = MediaMetadataRetriever()
+        retriever.setDataSource(this@VideoPlayerActivity, uri)
+        var bitmap = retriever.frameAtTime!!
+
+
+        if (bitmap.width > bitmap.height) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+
+        playError()
+    }
+
+    private fun playVideoSubtitle(subtitle: String) {
+        var oldPosition = this.simpleExoVideoPlayer.currentPosition
+        this.simpleExoVideoPlayer.stop()
+
+
+        var dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "app"))
+
+        concatenatingMediaSource = ConcatenatingMediaSource()
+
+        for (i in 0 until videoPlayerList.size) {
+            var currFile = this.videoPlayerList[i].path!!
+
+            var mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(Uri.parse(currFile))
+
+            var textFormat = Format.createTextSampleFormat(null, MimeTypes.APPLICATION_SUBRIP, Format.NO_VALUE, "app")
+            var subtitleSource = SingleSampleMediaSource.Factory(dataSourceFactory)
+                                            .setTreatLoadErrorsAsEndOfStream(true)
+                                            .createMediaSource(Uri.parse(subtitle), textFormat, C.TIME_UNSET)
+            var mergeMediaSource = MergingMediaSource(mediaSource, subtitleSource)
+
+            concatenatingMediaSource.addMediaSource(mergeMediaSource)
+        }
+
+        this.simpleExoVideoPlayer.playbackParameters = playbackParameters
+        this.simpleExoVideoPlayer.prepare(concatenatingMediaSource)
+        this.simpleExoVideoPlayer.seekTo(this.videoPosition, oldPosition)
 
         var uri = Uri.parse(this.videoPlayerList[this.videoPosition].path)
         var retriever = MediaMetadataRetriever()
@@ -395,10 +457,22 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
                 alertDialog.create().show()
             }
             8 -> {
+                this.dialogProperties.selection_mode = DialogConfigs.SINGLE_MODE
+                this.dialogProperties.extensions = arrayOf(".srt")
+                this.dialogProperties.root = File("/storage/emulated/0")
+                this.filePickerDialog.properties = this.dialogProperties
 
-            }
-            9 -> {
+                this.filePickerDialog.setDialogSelectionListener { files ->
+                    files?.let {
+                        for (s in it.iterator()) {
+                            this@VideoPlayerActivity.uriSubtitle = Uri.parse(File(s).absolutePath)
+                        }
 
+                        this@VideoPlayerActivity.playVideoSubtitle(this@VideoPlayerActivity.uriSubtitle.toString())
+                    }
+                }
+
+                this.filePickerDialog.show()
             }
         }
     }
