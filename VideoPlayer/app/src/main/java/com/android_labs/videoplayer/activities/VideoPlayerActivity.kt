@@ -1,8 +1,10 @@
 package com.android_labs.videoplayer.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.media.MediaMetadataRetriever
 import android.media.audiofx.AudioEffect
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +27,7 @@ import com.android_labs.videoplayer.R
 import com.android_labs.videoplayer.VolumeDialog
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.ExoPlaybackException
+import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
@@ -59,6 +63,9 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
     private lateinit var nightMode: View
     private var isDarkMode = false
     private var isMute = false
+
+    private var playbackParameters: PlaybackParameters = PlaybackParameters(1f)
+    private var speed = 1
 
     private var iconList: MutableList<IconModel> = mutableListOf(
         IconModel(R.drawable.ic_arrow_right_24, "", 0),
@@ -226,8 +233,21 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
             concatenatingMediaSource.addMediaSource(mediaSource)
         }
 
+        this.simpleExoVideoPlayer.playbackParameters = playbackParameters
         this.simpleExoVideoPlayer.prepare(concatenatingMediaSource)
         this.simpleExoVideoPlayer.seekTo(this.videoPosition, C.TIME_UNSET)
+
+        var uri = Uri.parse(this.videoPlayerList[this.videoPosition].path)
+        var retriever = MediaMetadataRetriever()
+        retriever.setDataSource(this@VideoPlayerActivity, uri)
+        var bitmap = retriever.frameAtTime!!
+
+
+        if (bitmap.width > bitmap.height) {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
 
         playError()
     }
@@ -338,7 +358,41 @@ class VideoPlayerActivity : AppCompatActivity(), View.OnClickListener, PlayIconA
                 playIconAdapter.notifyDataSetChanged()
             }
             7 -> {
+                var alertDialog = AlertDialog.Builder(this@VideoPlayerActivity)
+                alertDialog.setTitle("Select Playback Speed").setPositiveButton("Ok", null)
 
+                var items = arrayOf("0.5x", "1x Normal Speed", "1.25", "1.5x", "2x")
+                alertDialog.setSingleChoiceItems(items, speed) { _, which ->
+                    when (which) {
+                        0 -> {
+                            speed = 0
+                            playbackParameters = PlaybackParameters((0.5f))
+                            simpleExoVideoPlayer.playbackParameters = playbackParameters
+                        }
+                        1 -> {
+                            speed = 1
+                            playbackParameters = PlaybackParameters((1f))
+                            simpleExoVideoPlayer.playbackParameters = playbackParameters
+                        }
+                        2 -> {
+                            speed = 2
+                            playbackParameters = PlaybackParameters((1.25f))
+                            simpleExoVideoPlayer.playbackParameters = playbackParameters
+                        }
+                        3 -> {
+                            speed = 3
+                            playbackParameters = PlaybackParameters((1.5f))
+                            simpleExoVideoPlayer.playbackParameters = playbackParameters
+                        }
+                        4 -> {
+                            speed = 4
+                            playbackParameters = PlaybackParameters((2f))
+                            simpleExoVideoPlayer.playbackParameters = playbackParameters
+                        }
+                    }
+                }
+
+                alertDialog.create().show()
             }
             8 -> {
 
