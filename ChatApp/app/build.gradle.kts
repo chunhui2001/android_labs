@@ -54,7 +54,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.5.0")
     implementation("com.android.volley:volley:1.2.1")
-//    implementation("com.squareup.okhttp3:okhttp3:3.10.0")
+    implementation("com.squareup.okhttp3:okhttp:3.12.0")
 
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
