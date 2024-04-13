@@ -23,7 +23,8 @@ import okhttp3.WebSocketListener
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 
-const val SERVER_URL = "ws://echo.websocket.org"
+//const val SERVER_URL = "ws://echo.websocket.org"
+const val SERVER_URL = "ws://192.168.1.5:9100"
 private const val TAG = "com.android_labs.chatapp.ChatActivity"
 private const val REQUEST_IMAGE_CODE = 1
 

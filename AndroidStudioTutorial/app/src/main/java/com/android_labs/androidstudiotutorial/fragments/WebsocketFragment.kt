@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter
 
 const val INTERNET_PERMISSION_CODE = 1001
 const val TAG = "WebsocketFragment"
-const val WS_SERVER = "ws://192.168.1.5:9010/devstream/ws"
+const val WS_SERVER = "ws://192.168.1.5:9100/websocat/echo/ws"
 
 class WebsocketFragment: Fragment() {
 
@@ -84,7 +84,7 @@ class WebsocketFragment: Fragment() {
 
         override fun onOpen(webSocket: WebSocket, response: Response) {
             webSocket.send("""
-                {"ty":"Subscribe","data":{"channel":"ServerTime"}}
+                {"id": "1", "action": "Subscribe", "data": {"channel": "ServerTime"}}
             """)
         }
 
@@ -93,18 +93,21 @@ class WebsocketFragment: Fragment() {
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
+
             try {
                 if (JSONObject(text).getString("ty") == "ServerTime") {
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-                    val dateTime = LocalDateTime.parse(JSONObject(text).getString("msg"), formatter)
+                    val dateTime = LocalDateTime.parse(JSONObject(text).getString("data"), formatter)
                     serverTime.text = dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss.S"))
 //                    serverTime.text = dateTime.toString()
                 } else {
-//                    output("Receiving Text: $text")
+                    Log.d("onMessage2: ", "$text")
+                    output("Receiving Text: $text")
                 }
             } catch (e: Exception) {
 
-                output("Receiving Text: $text")
+                Log.d("onMessage1: ", "$text")
+                output("Receiving Text: $text, error:$e")
             }
         }
 
@@ -139,5 +142,11 @@ class WebsocketFragment: Fragment() {
 
     private fun requestPermission(permission: String, requestCode: Int) {
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), requestCode)
+    }
+
+    fun main() {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val dateTime = LocalDateTime.parse("2024-04-12T17:41:50.079Z", formatter)
+        System.out.println(dateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss.S")))
     }
 }
